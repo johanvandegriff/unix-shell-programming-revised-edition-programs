@@ -1,0 +1,4 @@
+Run /home/johanv/programs/mail/mail/Mail Program to start.
+Delete /home/johanv/programs/mail/mail to uninstall
+
+

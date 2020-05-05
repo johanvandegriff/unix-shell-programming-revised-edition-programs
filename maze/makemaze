@@ -1,0 +1,35 @@
+#!/bin/sh
+root=`cat $HOME/.maze_location`                 # read file
+cdir="maze/z"                                   # resets the current directory (the z could be anything)
+oldfound=0                                      # reset oldfound
+mkdir $root/maze                                # makes the top maze directory
+while read line                                 # loop reading from file (see bottom)
+do                                              #
+
+  found=`echo $line | tr 'X' '\n' | wc -l`      # figure out how many X's there are in the current line
+  found=`expr "$found" "-" "1"`                 # 
+
+  if [ "$found" -lt "$oldfound" ]               # if the current number of X's is less than last time
+  then                                          #
+    less=`expr "$oldfound" "-" "$found"`        # how much less?
+
+    while [ "$less" -ge "0" ]                   # repeat that many times
+    do                                          #
+      cdir=`dirname $cdir`                      # chop off the end of cdir
+      less=`expr "$less" "-" "1"`               #
+    done                                        #
+
+  fi                                            #
+
+  if [ "$found" -eq "$oldfound" ]               # if the current number of X's is the same as last time
+  then                                          #
+    cdir=`dirname $cdir`                        # chop off the end of cdir once
+  fi                                            #
+
+  cdir=$cdir/`echo $line | sed s/X//g`          # add line to cdir
+
+  mkdir $root/$cdir                             # make the directory
+
+  oldfound=$found                               # set oldfound for next time
+
+done < $root/maze.txt                           # file to be read from

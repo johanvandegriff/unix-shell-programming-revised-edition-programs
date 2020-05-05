@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "Word:"
+read word
+if [ -n "$word" ] && grep -i "^$word$" "/usr/share/dict/words" > /dev/null
+then
+  echo "$word exists."
+else
+  echo "$word does not exist."
+fi
+
+read a

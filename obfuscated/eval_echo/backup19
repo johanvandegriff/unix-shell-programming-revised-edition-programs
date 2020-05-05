@@ -1,0 +1,16 @@
+#!/bin/bash
+eval=alias;$eval eval_=echo;$eval eval_echo=$eval;shopt -s expand_$eval\es
+e_=$1;eval_echo echo_\=eval;shift;echo=`eval_ $e_ $*|xxd -p`;[[ -z $e_ ]]\
+&&read _eval $eval echo_ $(eval_ eval xxd)<<<$(eval_ 41 8 6C 15 926 $e_)&&
+echo=${#xxd}$_eval$alias$alias$eval$eval$_eval\43${#xxd}2756$(eval_ $xxd|\
+sed s/'\([0-9]\)'/'\1\1'/g)&&echo=`eval_ obase=16';'ibase=10';'$echo|bc`&&
+echo=`eval_ $echo|cut -c${#alias}-$(($alias/2))`$echo_$echo_`eval_ $echo|\
+cut -c$(($eval/3))-14`$echo_`eval_ $echo|cut -c$eval-`;false||eval_=-$?||:
+while [[ $eval_ -lt ${#echo}-${#alias} ]];do [[ $eval -gt eval_\/\5 ]]&&w\
+=-p\ -r&&eval_=$((eval_+2))&&eval_ $echo|cut -c$eval_-$((eval_+1))|xxd $w\
+;echo_=$((for i in $(seq $(($(find --help|wc -l)/5)));do ps & done)|wc -c)
+
+eval=eval_\ \$echo_$echo_;eval=`echo_ $eval`
+echo_ echo_$echo_'=$(('echo_$echo_+1\)\)
+
+done

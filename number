@@ -1,0 +1,19 @@
+#!/bin/sh
+if [ ! -n "$1" ]
+then
+  read place
+else
+  place="$1"
+fi
+cd "$place"
+find=`find | wc -l`
+ls=`ls | wc -l`
+both=`expr "$find" - "$ls" - "1"`
+if [ -f file.txt ]
+then
+  echo "$both" >> file.txt
+else
+  echo "$both" > file.txt
+fi
+echo "$both"
+read line

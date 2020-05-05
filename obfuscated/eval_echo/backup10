@@ -1,0 +1,21 @@
+#!/bin/bash
+eval=alias
+$eval eval_=echo
+$eval eval_echo=$eval
+shopt -s expand_$eval'es'
+eval_echo echo_\=eval
+echo=`echo "$@"|xxd -p`;[[ $echo == 0a ]]&&
+echo=48656C6C6F20576F726C64210A
+false
+eval_=-$?
+while [[ $eval_ -lt ${#echo}-1 ]];do
+[[ $eval -gt eval_/10 ]]&&eval_=$((eval_+2))&&echo $echo|cut -c$eval_-$((eval_+1))|xxd -p -r
+echo_=$((for i in $(seq $(($(find --help|wc -l)/5)));do ps & done)|wc -c)
+eval=echo\ \$echo_$echo_;eval=`eval $eval`
+eval echo_$echo_'=$(('echo_$echo_+1\)\)
+
+done
+
+alias
+eval_ hi
+echo_ hi

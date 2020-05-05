@@ -1,0 +1,5 @@
+#!/bin/sh
+
+root=`dirname $0`
+
+cat $root/file.txt | tr '`1234567890-=~!@#$%^&*()_+qwertyuiop[]\QWERTYUIOP{}|asdfghjkl;ASDFGHJKL:”zxcvbnm,./ZXCVBNM<>?' '?><MNBVCXZ/.,mnbvcxz":LKJHGFDSA;lkjhgfdsa|}{POIUYTREWQ\][poiuytrewq+_)(*&^%$#@!~=-0987654321`' > $root/file2.txt

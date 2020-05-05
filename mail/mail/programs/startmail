@@ -1,0 +1,44 @@
+#!/bin/bash
+home="$1"
+if [ ! -d "$home/mail/users" ]
+then
+  mkdir mail/users
+fi
+echo -n "Select a name or choose a new name:
+"
+ls -1 "$home"/mail/users
+echo
+read name
+if [ ! -n "$name" ]
+then
+  name=User
+fi
+name=`echo "$name" | tr " " "_"`
+maildir="$home/mail/users/$name"
+if [ ! -d "$maildir" ]
+then
+  mkdir "$maildir"
+  cd "$maildir"
+  mkdir "read" "unread"
+  cd "$home"
+  echo "New password for $name:"
+  read password
+  password=`echo "$password" | rev`
+  perl -e 'print unpack "H*", "'"$password\"" | rev > "$maildir/.password"
+else
+  echo "Password for $name:"
+  read password
+  password=`echo "$password" | rev`
+  password=`perl -e 'print unpack "H*", "'"$password\"" | rev`
+  correct=`cat $maildir/.password`
+  if [ "$password" != "$correct" ]
+  then
+    echo "Incorrect Password."
+    > "$home"/mail/files/name.txt
+    echo `date`":	Failed Password for $name" >> "$home"/mail/files/log.txt
+    echo `date`":	Failed Password Attempt: $password" > "$maildir/unread/$RANDOM"
+    exit 1
+  fi
+fi
+echo $name > "$home"/mail/files/name.txt
+echo `date`":	Logged in as $name" >> "$home"/mail/files/log.txt

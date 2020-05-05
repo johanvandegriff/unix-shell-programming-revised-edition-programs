@@ -1,0 +1,13 @@
+#!/bin/sh
+for line in `ls -1`
+do
+  if [ -f "$line" ]
+  then
+    clear
+    ls -l "$line"
+    echo
+    ls -l | grep "^d" | sed "s/  */ /g" | cut -f9- -d" "
+    read dir
+    test -d "$dir" && mv "$line" "$dir"
+  fi
+done

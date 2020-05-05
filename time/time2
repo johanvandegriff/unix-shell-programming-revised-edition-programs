@@ -1,0 +1,28 @@
+#!/bin/sh
+hours=`date | cut -c12-13`
+minutes=`date | cut -c15-16`
+seconds=`date | cut -c18-20`
+
+while true
+do
+  echo "$hours:$minutes:$seconds"
+  sleep 1
+  seconds=`expr $seconds + 1`
+  seconds=`printf "%02d" $seconds`
+  if [ $seconds = 60 ]
+  then
+    seconds=00
+    minutes=`expr $minutes + 1`
+    minutes=`printf "%02d" $minutes`
+    if [ $minutes = 60 ]
+    then
+      minutes=00
+      hours=`expr $hours + 1`
+      hours=`printf "%02d" $hours`
+      if [ $hours = 25 ]
+      then
+        hours=01
+      fi
+    fi
+  fi
+done

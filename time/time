@@ -1,0 +1,9 @@
+#!/bin/sh
+while true
+do
+  hours=`date | cut -c12-13`
+  minutes=`date | cut -c15-16`
+  seconds=`date | cut -c18-20`
+  echo "$hours:$minutes:$seconds"
+  sleep 0.1
+done

@@ -1,0 +1,5 @@
+#!/bin/sh
+for y in `ls $1`
+do echo $1/$y
+[ -d $1/$y ]&&$0 $1/$y
+done

@@ -1,0 +1,161 @@
+#!/bin/sh
+
+lowercase(){
+  echo "$@" | tr A-Z a-z #convert to lowercase
+
+
+}
+nums_only(){
+  echo "$@" | tr -cd 0-9   #remove non-numbers
+}
+
+binary_pair(){
+  echo "What is the name of the first element?"
+  read A
+  echo "How many of the first element are there?"
+  read x
+  echo "What is the root of the name of the second element?"
+  read B
+  echo "How many of the second element are there?"
+  read y
+
+  A=`lowercase "$A"`
+  B=`lowercase "$B"`
+  x=`nums_only "$x"`
+  y=`nums_only "$y"`
+
+case "$x" in
+  1);;
+  2)A_prefix="di";;
+  3)A_prefix="tri";;
+  4)A_prefix="tetra";;
+  5)A_prefix="penta";;
+  6)A_prefix="hexa";;
+  7)A_prefix="hepta";;
+  8)A_prefix="octa";;
+  9)A_prefix="nona";;
+  10)A_prefix="deca";;
+  *)echo "Invalid quantity for first element: $x"
+    exit;;
+esac
+
+case "$y" in
+  1)B_prefix="mono";;
+  2)B_prefix="di";;
+  3)B_prefix="tri";;
+  4)B_prefix="tetra";;
+  5)B_prefix="penta";;
+  6)B_prefix="hexa";;
+  7)B_prefix="hepta";;
+  8)B_prefix="octa";;
+  9)B_prefix="nona";;
+  10)B_prefix="deca";;
+  *)echo "Invalid quantity for second element: $y"
+    exit;;
+esac
+
+char1=`echo "$A" | cut -c1`
+char2=`echo "$A_prefix" | rev | cut -c1`
+if [ "$char1" = "$char2" ]
+then
+  A=`echo "$A" | sed s/^.//`
+fi
+
+char1=`echo "$B" | cut -c1`
+char2=`echo "$B_prefix" | rev | cut -c1`
+if [ "$char1" = "$char2" ]
+then
+  B=`echo "$B" | sed s/^.//`
+fi
+
+A_final="$A_prefix$A"
+B_final="$B_prefix${B}ide"
+
+echo "$A_final $B_final"
+}
+
+
+ion(){
+echo "What is the root of the ion?"
+read I
+echo "How many oxygens does it have?"
+read O
+echo "How many hydrogens does it have?"
+read H
+
+
+I=`lowercase "$A"`
+O=`nums_only "$O"`
+H=`nums_only "$H"`
+
+case "$O" in
+  0)prefix=""
+    suffix="ide";;
+  1)prefix="hypo"
+    suffix="ite";;
+  2)prefix=""
+    suffix="ite";;
+  3)prefix=""
+    suffix="ate";;
+  4)prefix="per"
+    suffix="ate";;
+  *)exit;;
+esac
+
+case "$H" in
+  0)prefix2="";;
+  1)prefix2="hydrogen ";;
+  2)prefix2="dihydrogen ";;
+  *)exit;;
+esac
+
+final="$prefix2$prefix$I$suffix"
+
+echo "$final"
+}
+
+
+acid(){
+echo "What is the root of the ion?"
+read I
+echo "How many oxygens does it have?"
+read O
+
+I=`lowercase "$I"`
+O=`nums_only "$O"`
+
+case "$O" in
+  0)prefix="hydro"
+    suffix="ic";;
+  1)prefix="hypo"
+    suffix="ous";;
+  2)prefix=""
+    suffix="ous";;
+  3)prefix=""
+    suffix="ic";;
+  4)prefix="per"
+    suffix="ic";;
+  *)exit;;
+esac
+
+final="$prefix$I$suffix acid"
+
+echo "$final"
+}
+
+
+
+echo "What type of molecule is it?
+1.Binary Pair
+2.Ion
+3.Acid
+"
+read choice
+
+case "$choice" in
+  1)binary_pair;;
+  2)ion;;
+  3)acid;;
+  *)exit;;
+esac
+read a

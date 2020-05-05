@@ -1,0 +1,38 @@
+#!/bin/bash
+tmpdir=~/tmp
+datafile=~/.tmpdata
+
+timeout=10000     # 10 seconds
+#timeout=86400000  # 1 day
+
+delimiter='	'
+
+now=`date +%s%N | cut -b1-13`
+
+tmpdata=`cat "$datafile"`
+> "$datafile"
+
+echo "$tmpdata" | while read line
+do
+  filename=`echo "$line" | cut -f1 -d"$delimiter"`
+  if [[ ! -z "$filename" ]]
+  then
+  if [[ -f "$tmpdir/$filename" ]] || [[ -d "$tmpdir/$filename" ]]
+  then
+    date_noticed=`echo "$line" | cut -f2 -d"$delimiter"`
+    if [[ $(($date_noticed + $timeout)) -lt "$now" ]]
+    then
+      rm -r "$tmpdir/$filename"
+    else
+      echo "$line" >> "$datafile"
+    fi
+  #else
+  #  echo "file missing: $filename"
+  fi
+  fi
+done
+
+ls -1 "$tmpdir" | while read line
+do
+  echo "$tmpdata" | grep "$line" > /dev/null || echo "$line $now" >> "$datafile"
+done

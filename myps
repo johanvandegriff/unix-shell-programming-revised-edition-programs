@@ -1,0 +1,4 @@
+#!/bin/sh
+#type in: myps $$
+echo "  PID TTY          TIME CMD"
+ps | grep "$1"

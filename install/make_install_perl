@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+my $dir = shift;
+my $file = shift;
+my $q = shift;
+if ( "$q" eq "" ) {
+  $q = rand(10000000);
+  $q =~ s/\.//;
+}
+
+sub write {
+  open FILE, ">", "file" or die $!;
+  print FILE "@_";
+  close FILE;
+}

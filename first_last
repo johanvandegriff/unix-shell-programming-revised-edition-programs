@@ -1,0 +1,14 @@
+#!/bin/sh
+case "$1" in
+  -f ) echo "$2";;
+  -l ) shift `expr $# - 1`
+       echo "$1";;
+ -fl ) echo "$2"
+       shift `expr $# - 1`
+       echo "$1";;
+ -lf ) lastarg="$2"
+       shift `expr $# - 1`
+       echo "$1"
+       echo "$lastarg";;
+   * ) echo "usage: $0 [-lf] args";;
+esac

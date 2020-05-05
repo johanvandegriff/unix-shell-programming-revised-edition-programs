@@ -1,0 +1,30 @@
+#!/bin/bash
+root="/home/johanv/.timer"
+if [ "$#" = "1" ]
+then
+  if [ "$1" = "get" ]
+  then
+    ls -1A "$root" | sort -g
+  fi
+fi
+timer="$root/$1"
+option="$2"
+now=`date +%s`
+test -d "$root" || mkdir "$root"
+if [ "$option" = "start" ]
+then
+  test -f "$timer" && exit 1
+  date "+%s" > "$timer"
+elif [ "$option" = "stop" ]
+then
+  test -f "$timer" || exit 1
+  rm "$timer"
+elif [ "$option" = "get" ]
+then
+  test -f "$timer" || exit 1
+  expr `date +%s` "-" `cat "$timer"`
+elif [ "$option" = "reset" ]
+then
+  "$0" "$1" stop || exit 1
+  "$0" "$1" start || exit 1
+fi

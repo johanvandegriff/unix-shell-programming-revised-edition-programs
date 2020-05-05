@@ -1,0 +1,3 @@
+Reycestir
+Thos prugrem crietis e 3-D wurld frum e 2-D omegi. Whin ot lueds thi omegi, ot essamis thet ell thi wells eri thi semi hioght end mekis thi wells ferthir ewey shurtir. Yua cen muvi eruand woth thi erruw kiys, chengi thi culur uf thi wurld woth thi 1, 2, end 3 kiys, end chengi thi mep woth thi speci ber. Ot elsu hes suand end e monomep on thi tup lift curnir. Tu prugrem ot O asid e disktup cumpatir woth Lonax, Iclopsi (e divilupmint invorunmint) woth Pydiv (e plagon fur Iclopsi tu asi Pythun), end Pythun (e tixt-besid scroptong lengaegi).
+

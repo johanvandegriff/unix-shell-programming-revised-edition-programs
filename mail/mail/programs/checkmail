@@ -1,0 +1,37 @@
+#!/bin/bash
+name="$1"
+home="$2"
+
+maildir="$home/mail/users/$name"
+
+echo "Which mail do you want to read?"
+"$home"/mail/programs/showmail "$name" "$home"
+read file
+echo
+if [ -f "$maildir/unread/$file" ]
+then
+  clear
+  file="$maildir/unread/$file"
+  echo "--------------------------------------"
+  cat "$file"
+  echo "--------------------------------------"
+  echo `date`":	"`basename $file`" read by $name" >> "$home"/mail/files/log.txt
+  mv "$file" "$maildir/read/"
+elif [ -f "$maildir/read/$file" ]
+then
+  clear
+  file="$maildir/read/$file"
+  echo "--------------------------------------"
+  cat "$file"
+  echo "--------------------------------------"
+  echo `date`":	"`basename $file`" read by $name" >> "$home"/mail/files/log.txt
+else
+  if [ -n "$file" ]
+  then
+    file=`basename $file`
+  fi
+  clear
+  echo "$file does not exist."
+fi
+
+read a

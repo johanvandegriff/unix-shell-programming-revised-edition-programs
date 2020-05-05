@@ -1,0 +1,16 @@
+#!/bin/sh
+while true
+do
+hour=`date | cut -c12-13`
+min=`date | cut -c15-16`
+if [ "$hour" -gt "12" ]
+then
+  day=pm
+  hour=`expr "$hour" '-' '12'`
+else
+  day=am
+fi
+echo "press ^C to exit
+$hour:$min $day"
+sleep 1
+done

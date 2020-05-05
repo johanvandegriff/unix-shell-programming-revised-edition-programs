@@ -1,0 +1,3 @@
+Raycaster
+This program creates a 3-D world from a 2-D image. When it loads the image, it assumes that all the walls are the same height and makes the walls farther away shorter. You can move around with the arrow keys, change the color of the world with the 1, 2, and 3 keys, and change the map with the space bar. It also has sound and a minimap in the top left corner. To program it I used a desktop computer with Linux, Eclipse (a development environment) with Pydev (a plugin for Eclipse to use Python), and Python (a text-based scripting language).
+

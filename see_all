@@ -1,0 +1,8 @@
+#!/bin/bash
+r=$RANDOM
+for f in `find`
+do
+  #echo "$f" | grep "[Jj][Pp][Gg]$" || convert "$f" "$r" && f="$r"
+  echo "$f" | grep "[Jj][Pp][Gg]$" && jp2a "$f" && read a
+done
+rm $r

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+arcive="$1"
+answer=y
+shift
+
+test -f $arcive && echo -n "$arcive already exists. replace it(y/n)?"
+test -f $arcive && read answer
+test $answer = y || exit 1
+
+echo "#
+# To restore, run $arcive
+#" > $arcive
+
+for file
+do
+  echo "echo Extracting $file
+cat > $file <<\THE-END-OF-DATA
+cat $file > $arcive
+THE-END-OF-DATA" > $arcive
+  echo -n "Is this file a program(y/n)?"
+  read answer
+  test $answer = y && echo "chmod 755 $file" >> $arcive
+done

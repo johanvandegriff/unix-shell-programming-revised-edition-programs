@@ -1,0 +1,12 @@
+#!/bin/bash
+echo=`echo "$@"|xxd -p`;[[ $echo == 0a ]]\
+&&echo=48656C6C6F20576F726C64210A;eval_=-1
+while [[ $eval_ -lt ${#echo}-1 ]];do echo\
+_=$((for i in $(seq $(($(find --help|wc -\
+l)/7)));do ps & done;ps -s;sleep 0)|wc -c)
+eval=echo' $'echo_$echo_;eval=`eval $eval`
+eval "echo_$echo_=\$((echo_$echo_+1))";[[\
+ $eval -gt eval_/10 ]]&&eval_=$((eval_+2))\
+&&echo $echo|cut -c$eval_-$((eval_+1))|xx\
+d -p -r;done
+exit

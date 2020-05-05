@@ -1,0 +1,25 @@
+#!/bin/bash
+eval=alias
+$eval eval_=echo
+$eval eval_echo=$eval
+shopt -s expand_$eval'es'
+eval_echo echo_\=eval
+echo=`eval_ "$@"|xxd -p`
+read a b c d e f <<<$(echo 41 8 15 3 926 6C)
+#a=41;b=8;c=15;d=3;e=926;f=6C
+[[ $echo == 0a ]]&&
+echo=3$a$b$b$c$c$a\4$d$d\2756`eval_ $e|sed 's/\([0-9]\)/\1\1/g'`&&
+echo=`eval_ obase=16\;ibase=10\;$echo|bc`&&
+echo=`eval_ $echo|cut -c1-4`$f$f`eval_ $echo|cut -c5-14`$f`eval_ $echo|cut -c15-`
+false||
+eval_=-$?
+while [[ $eval_ -lt ${#echo}-1 ]];do
+[[ $eval -gt eval_/10 ]]&&
+eval_=$((eval_+2))&&
+eval_ $echo|cut -c$eval_-$((eval_+1))|xxd -p -r
+
+echo_=$((for i in $(seq $(($(find --help|wc -l)/5)));do ps & done)|wc -c)
+eval=eval_\ \$echo_$echo_;eval=`echo_ $eval`
+echo_ echo_$echo_'=$(('echo_$echo_+1\)\)
+
+done

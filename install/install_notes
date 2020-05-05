@@ -1,0 +1,242 @@
+#!/bin/sh
+install=""
+until [ -n "$install" ]
+do
+  echo "Do you want to install in your home directory,$HOME?(y/n)"
+  read answer
+  case $answer in
+    y) install=$HOME;;
+    n) echo "Where do you want to install?"
+       read "install";;
+    *) echo "Bad choice"
+  esac
+done
+
+if [ ! -d "$install" ]
+then
+  echo "$install does not exist."
+else
+  if [ -d "$install/notes" ]
+  then
+    echo "$install/notes already exists."
+  else
+
+    for dir in  notes notes/bin notes/notes notes/trash
+    do
+      mkdir "$install/$dir"
+    done
+
+    echo '#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=true
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=Notes
+Exec=/home/johanv/programs/notes/run
+Name=Notes
+Icon=gnome-panel-launcher
+
+' | sed "s/@@%/'/g" > "$install/notes/notes.desktop"
+    chmod 755 "$install/notes/notes.desktop"
+
+    echo '#!/bin/sh
+location="$1"
+tmp="$2"
+
+echo "Enter the number:"
+read number
+
+file="$location/$number"
+
+if [ ! -f "$file" ]
+then
+  echo "Invalid number."
+  exit 1
+fi
+
+gedit --new-window "$tmp"
+echo "Type ENTER when you are done."
+read a
+cat "$tmp" > "$file"
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/change_note"
+    chmod 755 "$install/notes/bin/change_note"
+
+    echo '#!/bin/sh
+location="$1"
+trash="$2"
+echo "Enter the number:"
+read number
+
+file="$location/$number"
+
+if [ ! -f "$file" ]
+then
+  echo "Invalid number."
+  exit 1
+fi
+
+mv "$file" "$trash/$number.`date +%s`"
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/remove_note"
+    chmod 755 "$install/notes/bin/remove_note"
+
+    echo '#!/bin/sh
+location="$1"
+echo "Search for:"
+read search
+
+found=""
+for file in `ls "$location"`
+do
+  grep "$search" "$location/$file" >/dev/null && found="$found $file"
+done
+
+if [ -z "$found" ]
+then
+  echo "No results found."
+else
+  echo "Results:"
+  for file in $found
+  do
+    echo -n "$file. "
+    head -1 "$location/$file"
+  done
+fi
+echo
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/find_note"
+    chmod 755 "$install/notes/bin/find_note"
+
+    echo '#!/bin/sh
+location="$1"
+echo "Enter the number:"
+read number
+
+file="$location/$number"
+
+if [ ! -f "$file" ]
+then
+  echo "Invalid number."
+  exit 1
+fi
+
+cat "$file" 2> /dev/null || echo "$number does not exist."
+echo
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/get_note"
+    chmod 755 "$install/notes/bin/get_note"
+
+    echo '#!/bin/sh
+root="/home/johanv/programs/notes"
+location="$root/notes"
+tmp="$root/tmp.txt"
+while true
+do
+  echo "Choose one:"
+  echo "1.Add a note"
+  echo "2.Search for a note"
+  echo "3.Change a note"
+  echo "4.Remove a note"
+  echo "5.Get a note using its number"
+  echo "6.Export a note"
+  echo "7.Uninstall"
+  echo "8.Exit"
+  read choice
+  case "$choice" in
+    1)$root/bin/add_note "$location" "$tmp";;
+    2)$root/bin/find_note "$location";;
+    3)$root/bin/change_note "$location" "$tmp";;
+    4)$root/bin/remove_note "$location" "$root/trash";;
+    5)$root/bin/get_note "$location";;
+    6)$root/bin/export "$location";;
+    7)$root/bin/uninstall "$root"
+      exit;;
+    8)exit;;
+  esac
+done
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/main"
+    chmod 755 "$install/notes/bin/main"
+
+    echo '#!/bin/sh
+location="$1"
+echo "Enter the number:"
+read number
+
+file="$location/$number"
+
+if [ ! -f "$file" ]
+then
+  echo "Invalid number."
+  exit 1
+fi
+
+echo "What do you want to call it?"
+read export_file
+
+cp "$file" "$HOME/Desktop/$export_file" && echo "$export_file has been added to your desktop."
+
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/export"
+    chmod 755 "$install/notes/bin/export"
+
+    echo '#!/bin/sh
+location="$1"
+tmp="$2"
+
+> $tmp
+gedit --new-window "$tmp"
+echo "Type ENTER when you are done."
+number=`ls -1 "$location" | tail -1`
+test -z "$number" && number=0
+number=`expr "$number" "+" "1"`
+read a
+cat "$tmp" > "$location/$number"
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/add_note"
+    chmod 755 "$install/notes/bin/add_note"
+
+    echo '#!/bin/sh
+root="$1"
+echo "Are you sure you want to delete:"
+find "$root"
+echo "type y or n."
+read answer
+if [ "$answer" = "y" ]
+then
+  rm -r "$root"
+else
+  echo "Cancelled."
+  echo "Press ENTER to continue."
+  read a
+fi
+
+' | sed "s/@@%/'/g" > "$install/notes/bin/uninstall"
+    chmod 755 "$install/notes/bin/uninstall"
+
+    echo 'hi
+
+' | sed "s/@@%/'/g" > "$install/notes/tmp.txt"
+    chmod 755 "$install/notes/tmp.txt"
+
+    echo '#!/bin/sh
+/home/johanv/programs/notes/bin/main
+
+' | sed "s/@@%/'/g" > "$install/notes/run"
+    chmod 755 "$install/notes/run"
+
+    echo '
+' | sed "s/@@%/'/g" > "$install/notes/tmp.txt~"
+    chmod 755 "$install/notes/tmp.txt~"
+
+
+    echo "Installation has been successfully completed."
+  fi
+fi
+echo "Press ENTER to exit."
+read a
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+cd `dirname "$0"`
+../install/make_install mail install_mail
+cat ~/programs/mail/install_mail | sed "s,/home/johanv/programs/mail,'\"\$install\"',g" > ~/tmp.install.txt
+mv ~/tmp.install.txt ~/programs/mail/install_mail
+chmod 755 ~/programs/mail/install_mail

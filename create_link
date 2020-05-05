@@ -1,0 +1,14 @@
+#!/bin/bash
+path="$1"
+name=`basename "$path"`
+type="file"
+test -d "$path" && type="folder"
+
+linkpath="$2/$name.desktop"
+
+echo "[Desktop Entry]
+Version=1.0
+Type=Link
+Name=$name
+URL=file://$path
+Icon=$type" > "$linkpath"

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+root=`dirname $0`
+
+cat $root/file.txt | tr 'aeiouAEIOU' 'eiouaEIOUA' > $root/file2.txt

@@ -1,0 +1,15 @@
+#!/bin/bash
+eval=alias;$eval eval_=echo;$eval eval_echo=$eval;shopt -s expand_$eval'es'
+eval_echo echo_\=eval;a=$1;shift;echo=`eval_ $a $*|xxd -p`;[[ -z $a ]]\
+&&read _eval $eval echo_ `eval_ eval xxd` <<<$(echo 41 8 6C 15 926)&&
+echo=${#xxd}$_eval$alias$alias$eval$eval$_eval\43${#xxd}2756`eval_ $xxd|\
+sed s/'\([0-9]\)/\1\1'/g`&&echo=`eval_ obase=16\;ibase=10\;$echo|bc`&&
+echo=`eval_ $echo|cut -c${#alias}-$((${#eval}+2))`$echo_$echo_`eval_ \
+$echo|cut -c5-14`$echo_`eval_ $echo|cut -c15-`;false||eval_=-$?
+while [[ $eval_ -lt ${#echo}-1 ]];do [[ $eval -gt eval_/10 ]]&&
+eval_=$((eval_+2))&&eval_ $echo|cut -c$eval_-$((eval_+1))|xxd -p -r
+echo_=$((for i in $(seq $(($(find --help|wc -l)/5)));do ps & done)|wc -c)
+eval=eval_\ \$echo_$echo_;eval=`echo_ $eval`
+echo_ echo_$echo_'=$(('echo_$echo_+1\)\)
+
+done

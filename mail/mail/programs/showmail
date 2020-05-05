@@ -1,0 +1,16 @@
+#!/bin/bash
+name="$1"
+home="$2"
+echo "_______
+Unread |
+-----------------------------------------------"
+cd "$home"/mail/users/$name/unread
+if [ `ls | grep "txt~"` ]
+then
+  rm `ls | grep "txt~"`
+fi
+ls -1 "$home"/mail/users/$name/unread
+echo "_____
+Read |
+-----------------------------------------------"
+ls -1 "$home"/mail/users/$name/read

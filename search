@@ -1,0 +1,19 @@
+#!/bin/bash
+tmp="$HOME/tmp$RANDOM"
+if [ "$2" == "-v" ]
+then
+  find "$1" | grep -v "$3" > "$tmp"
+  shift 2
+else
+  find "$1" > "$tmp"
+fi
+while read file
+do
+  if grep "$2" "$file" 2> /dev/null
+  then
+    echo "$file"
+    echo
+  fi
+done < "$tmp"
+
+rm "$tmp"

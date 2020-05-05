@@ -1,0 +1,211 @@
+#!/bin/bash
+cd `dirname "$0"`
+
+#shows each of the versions of the file in order
+function show {
+  i=1
+  for file in "$@"
+  do
+    clear
+    echo "$i / 20   //"
+    echo "==========="
+    echo
+    cat "$file"
+    read a
+    i=$(($i+1))
+  done
+}
+
+show backup*
+show explain*
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#see eval_echo for the actual program
+
+# $chars	$echo
+# $found	$eval_
+# $index	$echo_
+# $val		$eval
+# array		echo
+# alias eval_=echo
+# alias echo_=eval
+
+
+#N 48656C6C6F20576F726C64210A
+#1            0            0
+#2                        1
+#3           2      2    2
+#4 4                    4
+#5    5        5
+#6   6 6 6 6     6   6 6
+#7              7  7
+#8  8
+#9
+#A                          A
+#B
+#C      C C           C
+#D
+#E
+#F          F     F
+
+/ni/!i==_ $$=_ $''$_npx - tp=\_ _&&]] 0 == $ [[;`p- xx|"@$" _`=`'n\' - rt|'g//][/' |_ t`=f?$-=_;]] 1-}{$ t- _$ [[ iw&&]] 01/_ tg- $ [[&&))2+_(($=_r- p- xx|))1+_(($-_$- tu|$ _)- w|)n & p ;)))5/)- w|p-- nif($(($ q($ ni i rf(($=_`$ _`=;_$_$\ \_=)\)\1+_$_'(($='_$_ _n
+
+
+5735816763073005734600101863690
+=10*573581676307300573460010186369
+=2*5*573581676307300573460010186369
+=2*5*3*191193892102433524486670062123
+=2*5*3*(191193892102433524486670000000+62123)
+=2*5*3*(19119389210243352448667*10000000+23*37*73)
+=30*(19119389210243352448667*10^7+23*37*73)
+=
+
+`cat eval_echo|sed 's/[chaos#delve*b]//g'|tr -d '\n'`
+
+
+echo -n 6C | xxd -p -r 
+-> l
+
+Heo Word!
+341881515414332756992266
+3 41 88 15 15 41 4 33 2756 992266
+a=41;b=8;c=15;d=3;e=926;echo 3$a$b$b$c$c$a\4$d$d\2756`echo $e|sed 's/[0-9]/\1\1/g'`
+
+'s/[0-9]/$1$1/g'` #$e$e$f$f$g$g
+
+
+echo=48656F20576F7264210A;`echo $echo|cut -c1-4`$f`echo $echo|cut -c5-14`$f`echo $echo|cut -c15-`
+4865  6F20576F72 64210A
+48656C6C6F20576F726C64210A
+
+
+f=6C;echo=48656F20576F7264210A;echo=`echo $echo|cut -c1-4`$f$f`echo $echo|cut -c5-14`$f`echo $echo|cut -c15-`;echo $echo | xxd -p -r
+
+
+
+#echo=`cat $0|sed 's/[^colahev]/\n/g'|grep 'eval\|echo' | sed 's/eval/0/g'|sed 's/echo/1/g'|tr -d '\n' | xargs echo 'obase=10;ibase=2;'|bc`
+
+#EXPLANATION:
+
+
+
+
+#TRANSLATED:
+#!/bin/bash
+chars=`echo "$@"|xxd -p`
+[[ $chars == 0a ]] && chars=48656C6C6F20576F726C64210A
+found=-1
+while [[ $found -lt $((${#chars} - 1)) ]]
+do
+  index=$((for i in `seq $(($(find --help|wc -l)/5))`; do ps & done; sleep 0)|wc -c)
+  val="echo \$array_$index"
+  val=`eval $val`
+  eval "array_$index=\$((array_$index+1))"
+  [[ $val -gt $((found/10)) ]] && found=$((found+2)) && echo $chars|cut -c$found-$((found+1))|xxd -p -r
+done
+exit
+#OLD VERSION:
+#!/bin/bash
+chars=`echo "$@"|xxd -p`
+[[ $chars == 0a ]] && chars=48656C6C6F20576F726C64210A
+length=`expr ${#chars} - 1`
+found=-1
+newline="
+"
+while [[ $found -lt $length ]]; do
+index=$((for i in `seq $(($(find --help|wc -l)/5))`; do ps & done; sleep 0)|wc -c)
+defined=`echo "$defined$newline$index"|sort -u`
+val="echo \$array_$index"
+val=`eval $val`
+eval "array_$index=\$((array_$index+1))"
+[[ $val -gt $((found/10)) ]] && found=$((found+2)) && echo $chars|cut -c$found-$((found+1))|xxd -p -r #&& echo $found
+done
+echo
+defined=`echo "$defined"|sort -u`
+for line in $defined; do
+val="echo -n \$array_$line"
+val=`eval $val`
+printf %03d'	' $val
+echo "obase=2;$line"|bc|tr 01 " #"
+done|sort
+
+#seq=`echo 7365710a|xxd -p -r`;defined="";newline="
+#echo "$defined"|grep "$index"|awk '{print "obase=2;",$0}'|bc|tr 01 " #"|xargs echo -n||eval "array_$index=0"&&defined="$defined$newline$index"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# $chars	$echo
+# $found	$eval_
+# $index	$_echo
+# $val		$eval
+# array		echo
+
+
+#TRANSLATED:
+#!/bin/bash
+chars=`echo "$@"|xxd -p`
+[[ $chars == 0a ]] && chars=48656C6C6F20576F726C64210A
+found=-1
+while [[ $found -lt $((${#chars} - 1)) ]]
+do
+  index=$((for i in `seq $(($(find --help|wc -l)/5))`; do ps & done; sleep 0)|wc -c)
+  val="echo \$array_$index"
+  val=`eval $val`
+  eval "array_$index=\$((array_$index+1))"
+  [[ $val -gt $((found/10)) ]] && found=$((found+2)) && echo $chars|cut -c$found-$((found+1))|xxd -p -r
+done
+exit
+#OLD VERSION:
+#!/bin/bash
+chars=`echo "$@"|xxd -p`
+[[ $chars == 0a ]] && chars=48656C6C6F20576F726C64210A
+length=`expr ${#chars} - 1`
+found=-1
+newline="
+"
+while [[ $found -lt $length ]]; do
+index=$((for i in `seq $(($(find --help|wc -l)/5))`; do ps & done; sleep 0)|wc -c)
+defined=`echo "$defined$newline$index"|sort -u`
+val="echo \$array_$index"
+val=`eval $val`
+eval "array_$index=\$((array_$index+1))"
+[[ $val -gt $((found/10)) ]] && found=$((found+2)) && echo $chars|cut -c$found-$((found+1))|xxd -p -r #&& echo $found
+done
+echo
+defined=`echo "$defined"|sort -u`
+for line in $defined; do
+val="echo -n \$array_$line"
+val=`eval $val`
+printf %03d'	' $val
+echo "obase=2;$line"|bc|tr 01 " #"
+done|sort
+
+#seq=`echo 7365710a|xxd -p -r`;defined="";newline="
+#echo "$defined"|grep "$index"|awk '{print "obase=2;",$0}'|bc|tr 01 " #"|xargs echo -n||eval "array_$index=0"&&defined="$defined$newline$index"

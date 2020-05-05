@@ -1,0 +1,42 @@
+#!/bin/bash
+name="$1"
+person="$2"
+home="$3"
+
+if [ -d "$home/mail/users/$person/unread" ]
+then
+  goodchoice=""
+  clear
+  until [ "$goodchoice" = "true" ]
+  do
+    cd "$home/mail/users/$person/unread"
+    echo -n "subject?"
+    read subject
+    filename=`echo -n "$subject" | tr " " "_"`
+
+    if [ -f "$home/mail/users/$person/unread/$subject" ]
+    then
+      clear
+      echo "$subject already exists!"
+    else
+      if [ -n "$subject" ]
+      then
+        echo "
+
+
+
+
+--$name" > "$filename"
+        gedit --new-window "$filename"
+        goodchoice="true"
+        echo `date`":	$subject sent from $name to $person" >> "$home"/mail/files/log.txt
+      else
+        clear
+      fi
+    fi
+  done
+else
+  clear
+  echo "$person does not exist"
+  read a
+fi

@@ -1,0 +1,69 @@
+#!/bin/bash
+echo "
+ ___      ___       __       _____   _
+|   \    /   |     /  \     |_   _| | |
+| |\ \  / /| |    / /\ \      | |   | |
+| | \ \/ / | |   / /__\ \     | |   | |
+| |  \__/  | |  / ______ \   _| |_  | |____
+|_|        | | /_/      \_\ |_____| |______|
+"
+
+sleep 2
+home=/home/johanv/programs/mail
+name=""
+while [ "$name" == "" ]
+do
+  clear
+  "$home"/mail/programs/startmail "$home"
+  name=`cat "$home"/mail/files/name.txt`
+done
+while true
+do
+  clear
+  echo "
+============================
+=               _____      =
+= |\  /|   /\     |   |    =
+= | \/ |  /__\    |   |    =
+= |    | /    \ __|__ |___ =
+=                          =
+============================"
+  echo "User: " $name
+  echo "Mail:"
+  "$home"/mail/programs/showmail "$name" "$home"
+  echo "==============================================="
+  echo "What do you want to do(1-5)?"
+  echo "1.Send a message to any user."
+  echo "2.Read a message in your inbox."
+  echo "3.Log out of your account."
+  echo "4.List all the users."
+  echo "5.exit."
+  read choice
+  cd
+  case "$choice" in
+    1) clear
+       echo "Choose a person:"
+       ls -1 "$home"/mail/users
+       echo
+       read person
+       "$home"/mail/programs/sendmail "$name" "$person" "$home";;
+    2) clear
+       "$home"/mail/programs/checkmail "$name" "$home";;
+    3) clear
+       echo `date`":	Logged out form $name" >> "$home"/mail/files/log.txt
+       name=""
+       while [ "$name" == "" ]
+       do
+         clear
+         "$home"/mail/programs/startmail "$home"
+         name=`cat "$home"/mail/files/name.txt`
+       done;;
+    4) clear
+       ls -1 "$home"/mail/users
+       read a;;
+    5) echo `date`":	Logged out form $name" >> "$home"/mail/files/log.txt
+       echo `date`":	Exited" >> "$home"/mail/files/log.txt
+       exit;;
+    5) more "$home"/mail/files/log.txt;;
+  esac
+done

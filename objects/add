@@ -1,0 +1,12 @@
+#!/bin/sh
+cat $HOME/programs/objects/objects.txt
+number=`cat objects.txt | cut -f1 -d' ' | tail -1`
+number=`expr "$number" '+' '1'`
+number=`printf "%4s" $number | tr ' ' '0'`
+echo -n "ADD (object)  "
+read object
+echo -n "ADD (color)  "
+read color
+echo "$number $object	$color" >> $HOME/programs/objects/objects.txt
+gedit $HOME/programs/objects/objects.txt
+

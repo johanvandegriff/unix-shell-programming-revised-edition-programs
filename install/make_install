@@ -1,0 +1,90 @@
+#!/bin/sh
+if [ "$1" = "--help" ]
+then
+  echo "usage:
+$0 directory file [unique string]"
+  exit
+fi
+dir="$1"                                     # The directory to be put in the install file
+file=`pwd`"/$2"                                    # The install file
+q="$3"                                       # The string that any single quotes will be replaced with
+
+if [ ! -d "$dir" ]
+then
+  echo "$dir does not exist."
+  exit 2                                     # Serious problem
+fi
+
+if [ -f "$file" ]  
+then
+  echo "$file already exists. Do you want to overwrite it?(y/n)"
+  read answer
+  if [ ! "$answer" = "y" ]
+  then
+    echo "Cancelled."
+    exit 1                                   # Minor problem
+  fi
+fi
+
+test -z "$q" && q='Wq?uUQhXP:jcn%k9ag$%'
+# If $q is empty, set it to a default value
+
+echo '#!/bin/sh
+install=""
+until [ -n "$install" ]
+do
+  echo "Do you want to install in your home directory,$HOME?(y/n)"
+  read answer
+  case $answer in
+    y) install=$HOME;;
+    n) echo "Where do you want to install?"
+       read "install";;
+    *) echo "Bad choice"
+  esac
+done
+
+if [ ! -d "$install" ]
+then
+  echo "$install does not exist."
+else
+  if [ -d "$install/'"$dir"'" ]
+  then
+    echo "$install/'"$dir"' already exists."
+  else
+' > "$file"                                  # Start the install file
+
+dirname=`basename "$dir"`
+cd "$dir"
+find | cut -c3- | while read item
+do
+  if [ -f "$item" ]
+  then
+    echo -n "#$item
+echo '" >> "$file"
+    if grep "'" "$item" > /dev/null
+    then
+      cat "$item" | awk '{printf "%s", l $0; l=RT}' | sed "s/'/$q/g"  >> "$file"
+      # Change all the single quotes to the value in the variable
+      echo "' | sed \"s/$q/'/g\""' > "$install/'"$dirname/$item\"" >> "$file"
+      # Tell the install program how to change them back
+    else
+      cat "$item" | awk '{printf "%s", l $0; l=RT}' >> "$file"
+      echo \'' > "$install/'"$dirname/$item\"" >> "$file"
+    fi
+    echo 'chmod 755 "$install/'"$dirname/$item\"" >> "$file"
+    # Tell the program to make the file executable
+    echo >> "$file"
+  else
+    echo 'mkdir "$install/'"$dirname/$item\"" >> "$file"
+  fi
+done
+
+echo '
+    echo "Installation has been successfully completed."
+  fi
+fi
+echo "Press ENTER to exit."
+read a
+' >> "$file"                                 # Finish the install file
+chmod 755 "$file"                            # Make the install program executable
+echo "Install file succesfully created."

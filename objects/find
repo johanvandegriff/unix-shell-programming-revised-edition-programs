@@ -1,0 +1,4 @@
+#!/bin/sh
+echo -n "FIND "
+read color
+grep "$color" $HOME/programs/objects/objects.txt

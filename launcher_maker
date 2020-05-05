@@ -1,0 +1,17 @@
+#!/bin/sh
+echo "Please enter the filename"
+read filename
+name=`basename "$filename"`
+echo '#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=true
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]='"$name"'
+Exec='"$filename"'
+Name='"$name"'
+Icon=gnome-panel-launcher' > "$HOME/Desktop/$name.desktop"
+nano "$HOME/Desktop/$name.desktop"

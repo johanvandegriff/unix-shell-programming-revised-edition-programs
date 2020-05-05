@@ -1,0 +1,18 @@
+#!/bin/sh
+cd `dirname $0`
+#test -d get_mouse_position || exit
+mouse=`./get_mouse_position`
+position="2"
+if echo $mouse | grep "button1" && [ "$position" -gt "0" ]
+then
+  position=`expr "$position" - "1"`
+fi
+
+if echo $mouse | grep "button2" && [ "$position" -lt "4" ]
+then
+  position=`expr "$position" + "1"`
+fi
+
+echo $random
+read a
+

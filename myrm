@@ -1,0 +1,39 @@
+#!/bin/sh
+if [ "$1" = -m ]
+then
+  MAXFILES="$2"
+  shift 2
+else
+  MAXFILES="10"
+fi
+
+if [ "$#" -eq 0 ]
+then
+  echo "Usage: `basename $0` [-m maxfiles] files"
+  exit 1
+fi
+
+if [ "$#" -ge "$MAXFILES" ]
+then
+  echo -n "More than $MAXFILES files;delete(y/n)?"
+  read answer
+else
+  answer=y
+fi
+
+if [ "$answer" != "y" ]
+then
+  exit
+fi
+
+for file
+do
+  if [ -f "$file" ]
+  then
+    rm "$file"
+  else
+    echo "$file does not exist."
+    echo "suggestions:"
+    eval ls *"$file"* 2> $HOME/errors
+  fi
+done

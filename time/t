@@ -1,0 +1,11 @@
+#!/bin/sh
+hour=`date | cut -c12-13`
+min=`date | cut -c15-16`
+if [ "$hour" -gt "12" ]
+then
+  day=pm
+  hour=`expr "$hour" '-' '12'`
+else
+  day=am
+fi
+echo "$hour:$min $day"

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+root="$1"
+
+date > $root/all_files.txt
+
+echo "------------------------------------------------------" >> $root/all_files.txt
+
+cd /
+
+find 2>> $root/errors.txt | sed 's/.//' >> $root/all_files.txt

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+root=/home/johanv/programs/other             #
+
+$root/get_all_files $root &                  # start getting files
+
+line=`ps | grep get_all_files`               # find the process
+
+number=`$root/first $line`                   # find the number
+
+echo "Search for:"                           #
+
+read search                                  # read filename or directory name
+
+echo -n "Searching..."                       #
+
+wait $number >> $root/errors.txt             # wait to finish getting all files
+
+echo "...Done"
+
+files=`grep "$search" $root/all_files.txt`   # find files
+
+echo "$files" > $root/results.txt
+
+echo -n "Number of results: "                #
+
+results=`echo "$files" | wc -l`              # calculate the number of results
+
+echo "$results"                              # display the number of results
+
+echo "Press enter to see them."              #
+
+read a                                       #
+
+if [ "$results" -gt "500" ]
+
+then
+
+  gedit --new-window $root/results.txt       # display the filenames
+
+else
+
+  cat $root/results.txt
+
+fi
+
+echo "Press enter to exit."                  #
+
+read a                                       #

@@ -1,0 +1,5 @@
+person one^Spammed With Jokes^(see person two for address)^(XXX)-XXX-XXXX^
+person two^Address line 1^Address line 2^XXX-XXX-XXXX^
+person three^Address line 1^Address line 2^(XXX)-XXX-XXX1^
+person four^Address line 1^Address line 2^XXXXXXXXXX^
+person five^Address line 1^Address line 2^XXX-XXX-XXXX^
