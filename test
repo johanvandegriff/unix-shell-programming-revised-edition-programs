@@ -1,0 +1,12 @@
+#!/bin/sh
+cd #~/programs/other
+ls -a | while read line
+do
+  if [ -f "$line" ]
+  then
+    echo "<=========>"
+    echo "$line:"
+    head -1 "$line"
+  fi
+done
+read a

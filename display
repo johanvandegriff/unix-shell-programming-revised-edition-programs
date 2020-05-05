@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#
+# Display entry from the phonebook
+#
+
+if [ -n "$@" ]
+then
+  echo "$@" | tr "^" "\n" > /home/johanv/programs/phonebook/tmp.txt
+  #$0
+fi
+
+print=/home/johanv/programs/phonebook/print
+
+$print ' --------------------------------\n'
+$print '|   O                        O   |\n'
+while read line
+do
+  $print '                                 |\r| '$line'\n'
+done < /home/johanv/programs/phonebook/tmp.txt
+$print ' --------------------------------\n'

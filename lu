@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#
+# Look someone up on the phonebook
+#
+
+name=$1
+
+grep $name $PHONEBOOK >/tmp/matches$$
+
+    if [  ! -s /tmp/matches$$ ]
+    then
+        if [ "$name" = "^" ]
+        then
+          echo "Your phone book is empty."
+        else
+          echo "I cannot find $name in the phone book."
+        fi
+    else
+      while read line
+      do
+        . ~/programs/phonebook/display "$line"
+      done </tmp/matches$$
+    fi
+
+rm /tmp/matches$$

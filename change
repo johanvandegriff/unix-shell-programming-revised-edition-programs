@@ -1,0 +1,52 @@
+#!/bin/sh
+
+#
+# change an entry in the phonebook
+#
+
+name=$1
+
+#
+#  get matching entries and save in temp file
+#
+
+grep "$name" $PHONEBOOK > /tmp/matches$$
+
+if [ ! -s /tmp/matches$$ ]
+then
+  echo "I cannot  find $name in the phone book."
+  exit 1
+fi
+
+#
+# Display matching entries one at a time and confirm change.
+#
+
+exec < /tmp/matches$$
+
+while read line
+do
+  . ~/programs/phonebook/display "$line"
+  echo -n "Change this entry (y/n)? "
+  read answer < /dev/tty
+
+  if [ "$answer" = y ]
+  then
+    break
+  fi
+done
+if [ "$answer" != y ]
+then
+  exit
+fi
+exec < /dev/tty
+display $line > /tmp/ed$$
+trap "" 2
+cd /tmp
+nano ed$$
+grep -v "^$line$" $PHONEBOOK > /tmp/phonebook$$
+tr '\n' '^' < /tmp/ed$$  >>/tmp/phonebook$$
+echo  >>/tmp/phonebook$$
+>>/tmp/phonebook$$
+sort -o /tmp/phonebook$$ $PHONEBOOK
+rm /tmp/ed$$ /tmp/phonebook$$

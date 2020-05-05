@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#
+# Put a adress in a file
+#
+
+name=$1
+file=$2
+
+if . ~/programs/phonebook/lu $name
+then
+  grep $name $PHONEBOOK > $file
+else
+  exit 1
+fi

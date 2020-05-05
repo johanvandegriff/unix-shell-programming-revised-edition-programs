@@ -1,0 +1,38 @@
+#!/bin/sh
+
+#
+# remove someone from thee phonebook
+#
+
+name=$1
+grep "$name" $PHONEBOOK > /tmp/matches$$
+
+if [ -s /tmp/matches$$ ]
+then
+  echo "I cannot find $name in the phone book."
+  exit 1
+fi
+exec < /tmp/matches$$
+
+while read line
+do
+  . ~/display "$line"
+  echo -n "Remove this entry "'(y/n)?'
+  read answer < /dev/tty
+
+  if [ "$answer = y" ]
+  then
+    break
+  fi
+done
+
+rm /tmp/matches$$
+
+if [ "$answer = y" ]
+then
+  if grep -v "^$line$" $PHONEBOOK > /tmp/phonebook$$
+  then
+    mv /tmp/phonebook$$ $PHONEBOOK
+    echo "Entry not removed"
+  fi
+fi
